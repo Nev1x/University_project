@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Учёт расходов</title>
+</head>
+<body>
+  <h1>Мои расходы</h1>
+  <a href="/add">➕ Добавить расход</a>
+  <ul>
+    {% for exp in expenses %}
+      <li>
+        {{ exp.date.strftime("%d.%m.%Y %H:%M") }} —
+        <strong>{{ exp.category }}</strong> :
+        {{ "%.2f"|format(exp.amount) }} ₽
+        {% if exp.description %} ({{ exp.description }}){% endif %}
+      </li>
+    {% else %}
+      <li>Пока расходов нет.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

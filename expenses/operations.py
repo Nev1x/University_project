@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
 
-def add_expense(db: Session, expense: schemas.ExpenseCreate):
-    new_expense = models.Expense(**expense.dict())
-    db.add(new_expense)
+def create_expense(db: Session, data: schemas.ExpenseCreate):
+    obj = models.Expense(**data.dict())
+    db.add(obj)
     db.commit()
-    db.refresh(new_expense)
-    return new_expense
+    db.refresh(obj)
+    return obj
 
-def get_expenses(db: Session):
-    return db.query(models.Expense).all()
+def list_expenses(db: Session):
+    return db.query(models.Expense).order_by(models.Expense.date.desc()).all()
