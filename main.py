@@ -2,7 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import os, pprint
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Query
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -41,3 +41,4 @@ def add_expense(category: str = Form(...),
                                      description=description)
         operations.create_expense(db, data)
     return RedirectResponse("/", status_code=303)
+
