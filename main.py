@@ -5,6 +5,7 @@ import os, pprint
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 from expenses.database import SessionLocal
 from expenses import operations, schemas
@@ -14,17 +15,11 @@ templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 app = FastAPI(title="Expense Tracker")
 
-# ───────────────────────── helpers (debug only) ──────────────────────
-def debug_templates():
-    sp = templates.env.loader.searchpath[0]          # ← абсолютный путь
-    print("SEARCH PATH:", sp)
-    print("FILES      :", pprint.pformat(os.listdir(sp)))
-    print("HAS index  :", os.path.exists(os.path.join(sp, "index.html")))
-# ---------------------------------------------------------------------
+# ── подключаем статику ────────────────────────────────────────────
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def read_expenses(request: Request):
-    debug_templates()                                # ← выводим один раз
     with SessionLocal() as db:
         expenses = operations.list_expenses(db)
     return templates.TemplateResponse(

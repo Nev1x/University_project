@@ -1,0 +1,48 @@
+/* ── базовые переменные ─────────────────────────────────────────── */
+:root {
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --text: #1e293b;
+  --muted: #64748b;
+  --radius: 10px;
+  --shadow: 0 2px 6px rgba(0,0,0,.06);
+  --trans: all .2s ease;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── общие стили ────────────────────────────────────────────────── */
+body { margin:0; background:var(--bg); color:var(--text); }
+a   { color:var(--primary); text-decoration:none; transition:var(--trans); }
+a:hover { color:var(--primary-light); }
+h1  { margin:0 0 .5em; }
+
+.container {
+  max-width: 720px; margin: 2rem auto; padding: 1.5rem;
+  background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+}
+
+/* ── список расходов ───────────────────────────────────────────── */
+.expense-list { list-style:none; padding:0; margin:0; }
+.expense-item {
+  padding:.75rem 1rem; border-bottom:1px solid #eef1f5;
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem;
+}
+.expense-item:last-child { border-bottom:none; }
+.expense-amount { font-weight:600; color:var(--primary); }
+
+/* ── форма ──────────────────────────────────────────────────────── */
+form label { display:block; margin:.75rem 0 .3rem; }
+input { width:100%; padding:.6rem .75rem; border:1px solid #d1d5db; border-radius:var(--radius); }
+button {
+  margin-top:1rem; padding:.6rem 1.25rem; font-weight:600; cursor:pointer;
+  background:var(--primary); color:#fff; border:none; border-radius:var(--radius);
+  transition:var(--trans);
+}
+button:hover { background:var(--primary-light); }
+
+/* ── навигация ──────────────────────────────────────────────────── */
+.nav { display:flex; gap:.75rem; margin-bottom:1.25rem; }
+.nav a { font-size:.95rem; padding:.35rem .75rem; border-radius:var(--radius); background:var(--bg); }
+.nav a:hover { background:#e2e8f0; }

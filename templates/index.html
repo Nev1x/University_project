@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
   <title>Учёт расходов</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Мои расходы</h1>
-  <a href="/add">➕ Добавить расход</a>
-  <ul>
-    {% for exp in expenses %}
-      <li>
-        {{ exp.date.strftime("%d.%m.%Y %H:%M") }} —
-        <strong>{{ exp.category }}</strong> :
-        {{ "%.2f"|format(exp.amount) }} ₽
-        {% if exp.description %} ({{ exp.description }}){% endif %}
-      </li>
-    {% else %}
-      <li>Пока расходов нет.</li>
-    {% endfor %}
-  </ul>
+  <main class="container">
+    <nav class="nav">
+      <a href="/">🏠 Главная</a>
+      <a href="/add">➕ Добавить</a>
+    </nav>
+
+    <h1>Мои расходы</h1>
+
+    <ul class="expense-list">
+      {% for exp in expenses %}
+        <li class="expense-item">
+          <span>{{ exp.date.strftime("%d.%m.%Y %H:%M") }}</span>
+          <span><strong>{{ exp.category }}</strong></span>
+          <span class="expense-amount">{{ "%.2f"|format(exp.amount) }} ₽</span>
+          {% if exp.description %}
+            <span style="flex-basis:100%; color:var(--muted);">
+              {{ exp.description }}
+            </span>
+          {% endif %}
+        </li>
+      {% else %}
+        <li class="expense-item">
+          Расходов ещё нет. Нажмите «Добавить», чтобы создать первый.
+        </li>
+      {% endfor %}
+    </ul>
+  </main>
 </body>
 </html>
